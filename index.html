@@ -361,9 +361,7 @@
             .creator-section .social-links a { font-size: 10px; padding: 3px 10px; }
         }
 
-        /* ============================================================
-           WELCOME NOTIFICATION - THU NHỎ
-           ============================================================ */
+        /* Welcome Notification */
         .welcome-notification {
             position: fixed;
             top: 0;
@@ -516,9 +514,7 @@
         .welcome-notification .notif-box::-webkit-scrollbar-track { background: transparent; }
         .welcome-notification .notif-box::-webkit-scrollbar-thumb { background: #ff3b3b; border-radius: 10px; }
 
-        /* ============================================================
-           BẢNG MÀU - COLOR PALETTE
-           ============================================================ */
+        /* Color Palette */
         .color-palette {
             display: flex;
             flex-wrap: wrap;
@@ -534,9 +530,7 @@
             transition: 0.3s;
             position: relative;
         }
-        .color-palette .color-option:hover {
-            transform: scale(1.1);
-        }
+        .color-palette .color-option:hover { transform: scale(1.1); }
         .color-palette .color-option.active {
             border-color: #fff;
             box-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
@@ -551,9 +545,7 @@
             opacity: 0;
             transition: 0.3s;
         }
-        .color-palette .color-option.active .check {
-            opacity: 1;
-        }
+        .color-palette .color-option.active .check { opacity: 1; }
         .color-option.custom-color {
             border: 2px dashed #666;
             background: transparent;
@@ -563,10 +555,7 @@
             font-size: 12px;
             color: #888;
         }
-        .color-option.custom-color:hover {
-            border-color: #fff;
-            color: #fff;
-        }
+        .color-option.custom-color:hover { border-color: #fff; color: #fff; }
         #customColorInput {
             position: absolute;
             opacity: 0;
@@ -607,7 +596,7 @@
         .card-vip { border-color: var(--accent-primary)66 !important; }
         .card-vip::before { background: conic-gradient(from 0deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary)) !important; }
 
-        /* Chat bot nâng cấp */
+        /* Chat bot */
         .chat-msg.own { background: linear-gradient(135deg, var(--accent-primary)22, var(--accent-secondary)22) !important; border-color: var(--accent-primary)44 !important; }
         .chat-msg.bot { border-color: var(--accent-primary)44 !important; }
         .chat-msg .msg-sender .sender-name.user-name { color: var(--accent-primary) !important; }
@@ -625,6 +614,54 @@
         .login-title { background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary), #00eaff) !important; -webkit-background-clip: text !important; }
         ::-webkit-scrollbar-thumb { background: var(--accent-primary) !important; box-shadow: 0 0 12px var(--accent-glow) !important; }
         #rgb-frame { border-image: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary), #ffdd00, #00ff88, #00ccff, #aa44ff, var(--accent-primary))1 !important; box-shadow: 0 0 30px var(--accent-glow), inset 0 0 30px var(--accent-glow) !important; }
+
+        /* Key Timer Display */
+        .key-timer {
+            background: #0a0809;
+            border-radius: 16px;
+            padding: 12px 16px;
+            border: 1px solid #2a1a2a;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .key-timer .timer-label {
+            font-size: 10px;
+            color: #888;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .key-timer .timer-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffaa00;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
+        .key-timer .timer-value.urgent {
+            color: #ff3333;
+            animation: blink 0.5s infinite;
+        }
+        .key-timer .timer-value.forever {
+            color: #00ff88;
+        }
+        .key-timer .timer-sub {
+            font-size: 10px;
+            color: #666;
+            margin-top: 2px;
+        }
+        .key-timer .timer-progress {
+            height: 3px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+        .key-timer .timer-progress .timer-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff3b3b, #ffaa00);
+            border-radius: 10px;
+            transition: width 1s linear;
+        }
     </style>
 </head>
 <body>
@@ -674,7 +711,7 @@
             </div>
         </div>
 
-        <!-- WELCOME NOTIFICATION - THU NHỎ -->
+        <!-- WELCOME NOTIFICATION -->
         <div class="welcome-notification" id="welcomeNotification">
             <div class="notif-box">
                 <div class="notif-content">
@@ -688,27 +725,22 @@
                         <div style="font-size:13px;font-weight:600;color:#ffaa00;text-align:center;margin-bottom:4px;">
                             🎉 CẢM ƠN QUÝ KHÁCH ĐÃ TIN TƯỞNG!
                         </div>
-
                         <span class="section-label"><i class="fas fa-rocket"></i> THÔNG TIN</span>
                         <ul>
                             <li>Hướng dẫn chi tiết có trong <span class="highlight-text">Chat Bot</span>.</li>
                             <li>Đọc kỹ hướng dẫn trước khi sử dụng.</li>
                         </ul>
-
                         <span class="section-label warning"><i class="fas fa-exclamation-triangle"></i> LƯU Ý</span>
                         <ul>
                             <li>KEY hết hạn → <span class="danger-text">đăng nhập không còn tác dụng</span>.</li>
                             <li>Mỗi KEY chỉ dùng trên <span class="highlight-text">01 thiết bị</span>.</li>
                             <li>Phát hiện 02 thiết bị → KEY <span class="danger-text">bị vô hiệu hóa</span>.</li>
                         </ul>
-
                         <span class="section-label" style="color:#00ff88;"><i class="fas fa-shield-alt"></i> BẢO MẬT</span>
                         <ul>
                             <li>Không chia sẻ KEY với người khác.</li>
                         </ul>
-
                         <div class="notif-divider"></div>
-
                         <div style="text-align:center;font-size:12px;color:#ddd;">
                             ❤️ <span style="color:#ffaa00;font-weight:600;">CẢM ƠN QUÝ KHÁCH ĐÃ ỦNG HỘ!</span>
                         </div>
@@ -823,6 +855,14 @@
                 </div>
             </div>
 
+            <!-- KEY TIMER - ĐẾM NGƯỢC -->
+            <div class="key-timer" id="keyTimer">
+                <div class="timer-label"><i class="fas fa-hourglass-half"></i> THỜI GIAN CÒN LẠI</div>
+                <div class="timer-value" id="timerValue">--:--:--</div>
+                <div class="timer-sub" id="timerSub">Đang tải...</div>
+                <div class="timer-progress"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>
+            </div>
+
             <!-- ACCOUNT STATUS -->
             <div class="card" style="border-color:#2a1a2a;">
                 <div class="flex-row">
@@ -877,7 +917,7 @@
             <div class="section-title"><i class="fas fa-terminal"></i> TERMINAL UCHIHA V7</div>
             <div class="terminal" id="terminalBox"></div>
 
-            <!-- MUSIC PLAYER -->
+            <!-- MUSIC PLAYER - FIX LỖI -->
             <div class="section-title"><i class="fas fa-music"></i> TRÌNH PHÁT NHẠC</div>
             <div class="music-player">
                 <div class="flex-row">
@@ -892,6 +932,7 @@
                     <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.7" style="width:60px;">
                     <input type="file" id="uploadMp3" accept="audio/*" style="display:none;" multiple>
                     <button class="music-btn" id="uploadBtn" type="button"><i class="fas fa-upload"></i></button>
+                    <button class="music-btn" id="loopBtn" type="button" style="font-size:16px;color:#888;" title="Lặp lại"><i class="fas fa-repeat"></i></button>
                 </div>
                 <div class="progress-bar" id="progressWrap">
                     <div class="progress-fill" id="progressFill"></div>
@@ -925,7 +966,7 @@
             <div class="section-title"><i class="fas fa-crown" style="color:#ffaa00;"></i> VIP CAO CẤP</div>
             <div class="card-grid" id="vipFeatures"></div>
 
-            <!-- COLOR PALETTE - BẢNG MÀU -->
+            <!-- COLOR PALETTE -->
             <div class="section-title"><i class="fas fa-palette"></i> BẢNG MÀU GIAO DIỆN</div>
             <div class="card" style="border-color:#2a1a2a;">
                 <div style="font-size:12px;color:#888;margin-bottom:10px;">Chọn màu chủ đạo cho giao diện</div>
@@ -1003,13 +1044,12 @@
             </div>
         </div>
 
-        <!-- CHAT BOT BUBBLE -->
+        <!-- CHAT BOT -->
         <div class="chat-bubble" id="chatBubble" title="Chat Bot UCHIHA">
             <i class="fas fa-robot"></i>
             <span class="badge-count" id="chatBadge">0</span>
         </div>
 
-        <!-- CHAT BOT BOX - NÂNG CẤP -->
         <div class="chat-box" id="chatBox">
             <div class="chat-header">
                 <div class="chat-title">
@@ -1042,7 +1082,7 @@
 
     <script>
         // ============================================================
-        // PHẦN SCRIPT
+        // PHẦN SCRIPT HOÀN CHỈNH
         // ============================================================
         (function() {
             // SNOW EFFECT
@@ -1115,7 +1155,84 @@
             }
 
             // ============================================================
-            // LƯU TRỮ KEY
+            // KEY TIMER - ĐẾM NGƯỢC
+            // ============================================================
+            let timerInterval = null;
+            let timerEndTime = null;
+
+            function startKeyTimer(expiryDate) {
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                }
+                if (!expiryDate) {
+                    document.getElementById('timerValue').textContent = 'VĨNH VIỄN';
+                    document.getElementById('timerValue').className = 'timer-value forever';
+                    document.getElementById('timerSub').textContent = 'Không giới hạn thời gian';
+                    document.getElementById('timerFill').style.width = '100%';
+                    return;
+                }
+                timerEndTime = new Date(expiryDate).getTime();
+                updateTimerDisplay();
+                timerInterval = setInterval(updateTimerDisplay, 1000);
+            }
+
+            function updateTimerDisplay() {
+                if (!timerEndTime) return;
+                const now = Date.now();
+                const diff = timerEndTime - now;
+                const timerValue = document.getElementById('timerValue');
+                const timerSub = document.getElementById('timerSub');
+                const timerFill = document.getElementById('timerFill');
+
+                if (diff <= 0) {
+                    timerValue.textContent = 'ĐÃ HẾT HẠN';
+                    timerValue.className = 'timer-value urgent';
+                    timerSub.textContent = '⛔ Vui lòng gia hạn key để tiếp tục sử dụng';
+                    timerFill.style.width = '0%';
+                    timerFill.style.background = '#ff3333';
+                    if (timerInterval) {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                    }
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                let display = '';
+                if (days > 0) {
+                    display = `${String(days).padStart(2,'0')}d ${String(hours).padStart(2,'0')}h ${String(minutes).padStart(2,'0')}m ${String(seconds).padStart(2,'0')}s`;
+                } else {
+                    display = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+                }
+                timerValue.textContent = display;
+                timerValue.className = 'timer-value';
+                if (days === 0 && hours < 1) {
+                    timerValue.className = 'timer-value urgent';
+                }
+
+                // Tính phần trăm thời gian còn lại
+                const total = timerEndTime - new Date(timerEndTime).setHours(0,0,0,0);
+                // Sử dụng cách tính khác cho progress
+                const progress = Math.min(100, Math.max(0, (diff / (1000 * 60 * 60 * 24 * 30)) * 100));
+                timerFill.style.width = Math.min(100, progress) + '%';
+                if (progress < 20) {
+                    timerFill.style.background = '#ff3333';
+                } else if (progress < 50) {
+                    timerFill.style.background = '#ffaa00';
+                } else {
+                    timerFill.style.background = 'linear-gradient(90deg, #00ff88, #ffaa00)';
+                }
+
+                timerSub.textContent = days > 0 ? `Còn ${days} ngày ${hours} giờ` : `Còn ${hours} giờ ${minutes} phút`;
+            }
+
+            // ============================================================
+            // LƯU TRỮ KEY VÀ THIẾT BỊ
             // ============================================================
             function getDeviceId() {
                 let deviceId = localStorage.getItem('uchiha_device_id');
@@ -1173,7 +1290,6 @@
                 root.style.setProperty('--accent-secondary', colors.secondary);
                 root.style.setProperty('--accent-glow', colors.primary + '66');
                 localStorage.setItem('uchiha_color_scheme', scheme);
-                // Update active state
                 document.querySelectorAll('.color-option').forEach(el => {
                     el.classList.toggle('active', el.dataset.scheme === scheme);
                 });
@@ -1202,6 +1318,123 @@
             let terminalInterval = null;
             let hasShownWelcomeNotif = false;
 
+            // ============================================================
+            // MUSIC PLAYER - FIX LỖI
+            // ============================================================
+            let audio = new Audio();
+            audio.volume = 0.7;
+            let isPlaying = false;
+            let playlist = [];
+            let currentTrackIndex = -1;
+            let audioCtx = null;
+            let analyser = null;
+            let dataArray = null;
+            let isLoop = false;
+            let visualizerId = null;
+
+            function initAudioContext() {
+                if (!audioCtx) {
+                    try {
+                        audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+                        analyser = audioCtx.createAnalyser();
+                        analyser.fftSize = 64;
+                        const source = audioCtx.createMediaElementSource(audio);
+                        source.connect(analyser);
+                        analyser.connect(audioCtx.destination);
+                        dataArray = new Uint8Array(analyser.frequencyBinCount);
+                    } catch (e) {
+                        console.log('AudioContext error:', e);
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            function initVisualizer() {
+                const container = document.getElementById('visualizer');
+                container.innerHTML = '';
+                for (let i = 0; i < 32; i++) {
+                    const bar = document.createElement('div');
+                    bar.className = 'bar';
+                    bar.style.height = '4px';
+                    container.appendChild(bar);
+                }
+            }
+            initVisualizer();
+
+            function updateVisualizer() {
+                if (!analyser || !isPlaying) {
+                    const bars = document.querySelectorAll('.visualizer .bar');
+                    bars.forEach(bar => { bar.style.height = '4px'; });
+                    if (isPlaying) visualizerId = requestAnimationFrame(updateVisualizer);
+                    return;
+                }
+                analyser.getByteFrequencyData(dataArray);
+                const bars = document.querySelectorAll('.visualizer .bar');
+                const len = Math.min(dataArray.length, bars.length);
+                for (let i = 0; i < len; i++) {
+                    const val = dataArray[i] / 255 * 100;
+                    bars[i].style.height = Math.max(4, val) + '%';
+                    bars[i].style.background = `hsl(${(i / len * 360 + Date.now() / 30) % 360}, 80%, 60%)`;
+                }
+                visualizerId = requestAnimationFrame(updateVisualizer);
+            }
+
+            function loadTrack(index) {
+                if (index < 0 || index >= playlist.length) return;
+                currentTrackIndex = index;
+                const file = playlist[index];
+                audio.src = URL.createObjectURL(file);
+                document.getElementById('currentTrack').textContent = file.name;
+                audio.load();
+                if (isPlaying) {
+                    audio.play().catch(e => console.log('Play error:', e));
+                }
+                updateProgress();
+            }
+
+            function updateProgress() {
+                if (audio.duration) {
+                    document.getElementById('progressFill').style.width = ((audio.currentTime / audio.duration) * 100) + '%';
+                    document.getElementById('timeDisplay').textContent = 
+                        `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+                }
+                if (isPlaying) requestAnimationFrame(updateProgress);
+            }
+
+            function formatTime(t) {
+                if (!t || isNaN(t)) return '0:00';
+                const m = Math.floor(t / 60);
+                const s = Math.floor(t % 60);
+                return `${m}:${s.toString().padStart(2,'0')}`;
+            }
+
+            function togglePlay() {
+                if (playlist.length === 0) {
+                    showToast('HÃY TẢI MP3 TRƯỚC', '🎵', '#ffaa00');
+                    return;
+                }
+                if (isPlaying) {
+                    audio.pause();
+                    isPlaying = false;
+                    document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i>';
+                    if (visualizerId) cancelAnimationFrame(visualizerId);
+                } else {
+                    if (!audio.src) {
+                        loadTrack(0);
+                    }
+                    audio.play().catch(e => console.log('Play error:', e));
+                    isPlaying = true;
+                    document.getElementById('playBtn').innerHTML = '<i class="fas fa-pause"></i>';
+                    initAudioContext();
+                    updateVisualizer();
+                    updateProgress();
+                }
+            }
+
+            // ============================================================
+            // HÀM TIỆN ÍCH
+            // ============================================================
             function playClickSound() {
                 try {
                     const ctx = new(window.AudioContext || window.webkitAudioContext)();
@@ -1310,6 +1543,7 @@
             // LOGIN HANDLER
             // ============================================================
             function handleLogin(username, key) {
+                // Guest login
                 if (!key && username) {
                     const guestName = username.trim() || 'Khách_' + Math.floor(Math.random() * 1000);
                     currentUser = { username: guestName, plan: 'guest', role: 'guest' };
@@ -1327,12 +1561,14 @@
                     return true;
                 }
 
+                // VIP Key login
                 if (!key) {
                     document.getElementById('loginError').style.display = 'block';
                     document.getElementById('loginError').textContent = 'VUI LÒNG NHẬP KEY';
                     return false;
                 }
 
+                // Kiểm tra key hết hạn
                 if (isKeyExpired(key)) {
                     document.getElementById('loginError').style.display = 'block';
                     document.getElementById('loginError').textContent = '⛔ TÀI KHOẢN ĐÃ HẾT HẠN! VUI LÒNG GIA HẠN KEY';
@@ -1402,7 +1638,7 @@
             }
 
             // ============================================================
-            // CHAT BOT NÂNG CẤP
+            // CHAT BOT
             // ============================================================
             const botResponses = [
                 '🔥 UCHIHA V7 đang hoạt động tối ưu! Bạn cần hỗ trợ gì không?',
@@ -1423,7 +1659,6 @@
                 const cmd = input.trim().toLowerCase();
                 const username = currentUser ? currentUser.username : 'Khách';
 
-                // Danh sách lệnh mở rộng
                 if (cmd === '/help' || cmd === '/h') {
                     return {
                         response: `
@@ -1567,7 +1802,6 @@
                     return { response: `🕐 Thời gian hiện tại: ${now.toLocaleString('vi-VN')}`, isHtml: false };
                 }
 
-                // Tin nhắn thường → Bot reply thông minh hơn
                 const randomReply = botResponses[Math.floor(Math.random() * botResponses.length)];
                 return {
                     response: `
@@ -1685,7 +1919,7 @@
 
                 if (chatMessages.length === 0) {
                     addChatMessage('🤖 UCHIHA BOT V7', 
-                        '👋 Chào mừng đến với UCHIHA V7!<br>Gõ <b style="color:#ffaa00;">/help</b> để xem danh sách lệnh nhé!<br><br>🆕 <b>Bot đã được nâng cấp</b> với nhiều tính năng mới!', 
+                        '👋 Chào mừng đến với UCHIHA V7!<br>Gõ <b style="color:#ffaa00;">/help</b> để xem danh sách lệnh nhé!', 
                         true, true);
                 }
                 renderChatMessages();
@@ -1715,20 +1949,6 @@
             const settingsContent = document.getElementById('settingsContent');
             const perfCanvas = document.getElementById('perfCanvas');
             const ctx = perfCanvas.getContext('2d');
-            const visualizer = document.getElementById('visualizer');
-            const playBtn = document.getElementById('playBtn');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const uploadBtn = document.getElementById('uploadBtn');
-            const uploadMp3 = document.getElementById('uploadMp3');
-            const volumeSlider = document.getElementById('volumeSlider');
-            const progressFill = document.getElementById('progressFill');
-            const progressWrap = document.getElementById('progressWrap');
-            const timeDisplay = document.getElementById('timeDisplay');
-            const currentTrack = document.getElementById('currentTrack');
-            const loadFill = document.getElementById('loadFill');
-            const loadingScreen = document.getElementById('loadingScreen');
-            const togglePass = document.getElementById('togglePass');
             const perfCpu = document.getElementById('perfCpu');
             const perfRam = document.getElementById('perfRam');
             const perfFps = document.getElementById('perfFps');
@@ -1744,8 +1964,7 @@
                     e.stopPropagation();
                     const scheme = this.dataset.scheme;
                     if (scheme === 'custom') {
-                        const input = document.getElementById('customColorInput');
-                        input.click();
+                        document.getElementById('customColorInput').click();
                         return;
                     }
                     applyColorScheme(scheme);
@@ -1934,6 +2153,13 @@
                     } else {
                         keyStatusDisplay.className = 'value expired';
                     }
+
+                    // Start key timer
+                    if (currentKeyInfo && !currentKeyInfo.isForever) {
+                        startKeyTimer(currentKeyInfo.expiryDate);
+                    } else {
+                        startKeyTimer(null);
+                    }
                 } else if (isGuest) {
                     planBadge.className = 'badge-guest';
                     planBadge.textContent = '👤 KHÁCH';
@@ -1949,6 +2175,13 @@
                     keyTimeDisplay.className = 'value';
                     keyStatusDisplay.textContent = '--';
                     keyStatusDisplay.className = 'value';
+
+                    document.getElementById('timerValue').textContent = 'DÙNG THỬ';
+                    document.getElementById('timerValue').className = 'timer-value';
+                    document.getElementById('timerSub').textContent = 'Không giới hạn thời gian dùng thử';
+                    document.getElementById('timerFill').style.width = '100%';
+                    if (timerInterval) { clearInterval(timerInterval);
+                        timerInterval = null; }
                 } else {
                     planBadge.className = 'badge-free';
                     planBadge.textContent = '🆓 MIỄN PHÍ';
@@ -1964,6 +2197,13 @@
                     keyTimeDisplay.className = 'value';
                     keyStatusDisplay.textContent = '--';
                     keyStatusDisplay.className = 'value';
+
+                    document.getElementById('timerValue').textContent = '--:--:--';
+                    document.getElementById('timerValue').className = 'timer-value';
+                    document.getElementById('timerSub').textContent = 'Vui lòng đăng nhập để kích hoạt';
+                    document.getElementById('timerFill').style.width = '0%';
+                    if (timerInterval) { clearInterval(timerInterval);
+                        timerInterval = null; }
                 }
                 renderFeatures();
             }
@@ -2254,6 +2494,15 @@
                 isVip = false;
                 isGuest = false;
                 stopFakeTerminal();
+                if (timerInterval) { clearInterval(timerInterval);
+                    timerInterval = null; }
+                // Dừng nhạc khi logout
+                if (isPlaying) {
+                    audio.pause();
+                    isPlaying = false;
+                    document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i>';
+                    if (visualizerId) cancelAnimationFrame(visualizerId);
+                }
                 dashboard.style.display = 'none';
                 loginScreen.style.display = 'flex';
                 loginScreen.style.opacity = '1';
@@ -2373,119 +2622,49 @@
             window.addEventListener('resize', resizeCanvas);
 
             // ============================================================
-            // MUSIC PLAYER
+            // MUSIC PLAYER EVENTS - FIX LỖI
             // ============================================================
-            let audio = new Audio();
-            audio.volume = 0.7;
-            let isPlaying = false;
-            let playlist = [];
-            let currentTrackIndex = -1;
-            let audioCtx, analyser, dataArray;
-
-            function initVisualizer() {
-                visualizer.innerHTML = '';
-                for (let i = 0; i < 32; i++) {
-                    const bar = document.createElement('div');
-                    bar.className = 'bar';
-                    bar.style.height = '4px';
-                    visualizer.appendChild(bar);
-                }
-            }
-            initVisualizer();
-
-            function updateVisualizer() {
-                if (!audioCtx) {
-                    try {
-                        audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-                        analyser = audioCtx.createAnalyser();
-                        analyser.fftSize = 64;
-                        const source = audioCtx.createMediaElementSource(audio);
-                        source.connect(analyser);
-                        analyser.connect(audioCtx.destination);
-                        dataArray = new Uint8Array(analyser.frequencyBinCount);
-                    } catch (e) { return; }
-                }
-                if (!isPlaying || !analyser) return;
-                analyser.getByteFrequencyData(dataArray);
-                const bars = visualizer.querySelectorAll('.bar');
-                const len = Math.min(dataArray.length, bars.length);
-                for (let i = 0; i < len; i++) {
-                    const val = dataArray[i] / 255 * 100;
-                    bars[i].style.height = Math.max(4, val) + '%';
-                    bars[i].style.background = `hsl(${(i / len * 360 + Date.now() / 30) % 360}, 80%, 60%)`;
-                }
-                requestAnimationFrame(updateVisualizer);
-            }
-
-            function loadTrack(index) {
-                if (index < 0 || index >= playlist.length) return;
-                currentTrackIndex = index;
-                const file = playlist[index];
-                audio.src = URL.createObjectURL(file);
-                currentTrack.textContent = file.name;
-                audio.load();
-                if (isPlaying) audio.play().catch(() => {});
-                updateProgress();
-            }
-
-            function updateProgress() {
-                if (audio.duration) {
-                    progressFill.style.width = ((audio.currentTime / audio.duration) * 100) + '%';
-                    timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
-                }
-                if (isPlaying) requestAnimationFrame(updateProgress);
-            }
-
-            function formatTime(t) {
-                if (!t || isNaN(t)) return '0:00';
-                const m = Math.floor(t / 60);
-                const s = Math.floor(t % 60);
-                return `${m}:${s.toString().padStart(2,'0')}`;
-            }
-
-            playBtn.addEventListener('click', function() {
-                if (playlist.length === 0) {
-                    showToast('HÃY TẢI MP3 TRƯỚC', '🎵', '#ffaa00');
-                    addClickFeedback(this);
-                    return;
-                }
+            document.getElementById('playBtn').addEventListener('click', function() {
+                togglePlay();
                 addClickFeedback(this);
-                if (isPlaying) {
-                    audio.pause();
-                    isPlaying = false;
-                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
-                } else {
-                    if (!audio.src) loadTrack(0);
-                    audio.play().catch(() => {});
+            });
+
+            document.getElementById('prevBtn').addEventListener('click', function() {
+                if (playlist.length === 0) return;
+                addClickFeedback(this);
+                const idx = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+                loadTrack(idx);
+                if (!isPlaying) {
+                    audio.play().catch(e => {});
                     isPlaying = true;
-                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    document.getElementById('playBtn').innerHTML = '<i class="fas fa-pause"></i>';
+                    initAudioContext();
                     updateVisualizer();
                     updateProgress();
                 }
             });
 
-            prevBtn.addEventListener('click', function() {
-                if (playlist.length === 0) return;
-                addClickFeedback(this);
-                const idx = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-                loadTrack(idx);
-                if (!isPlaying) { audio.play().catch(() => {}); isPlaying = true; playBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
-            });
-
-            nextBtn.addEventListener('click', function() {
+            document.getElementById('nextBtn').addEventListener('click', function() {
                 if (playlist.length === 0) return;
                 addClickFeedback(this);
                 const idx = (currentTrackIndex + 1) % playlist.length;
                 loadTrack(idx);
-                if (!isPlaying) { audio.play().catch(() => {}); isPlaying = true; playBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
+                if (!isPlaying) {
+                    audio.play().catch(e => {});
+                    isPlaying = true;
+                    document.getElementById('playBtn').innerHTML = '<i class="fas fa-pause"></i>';
+                    initAudioContext();
+                    updateVisualizer();
+                    updateProgress();
+                }
             });
 
-            uploadBtn.addEventListener('click', function() {
-                uploadMp3.click();
+            document.getElementById('uploadBtn').addEventListener('click', function() {
+                document.getElementById('uploadMp3').click();
                 addClickFeedback(this);
             });
 
-            uploadMp3.addEventListener('change', function(e) {
+            document.getElementById('uploadMp3').addEventListener('change', function(e) {
                 const files = e.target.files;
                 if (files.length) {
                     for (let f of files) playlist.push(f);
@@ -2496,24 +2675,40 @@
                 this.value = '';
             });
 
-            volumeSlider.addEventListener('input', function() {
+            document.getElementById('loopBtn').addEventListener('click', function() {
+                isLoop = !isLoop;
+                this.style.color = isLoop ? '#ffaa00' : '#888';
+                showToast(isLoop ? 'ĐÃ BẬT LẶP LẠI' : 'ĐÃ TẮT LẶP LẠI', '🔄', isLoop ? '#ffaa00' : '#888');
+                addClickFeedback(this);
+            });
+
+            document.getElementById('volumeSlider').addEventListener('input', function() {
                 audio.volume = parseFloat(this.value);
             });
 
-            progressWrap.addEventListener('click', function(e) {
+            document.getElementById('progressWrap').addEventListener('click', function(e) {
                 if (!audio.duration) return;
                 const rect = this.getBoundingClientRect();
                 audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
             });
 
-            audio.addEventListener('ended', () => {
+            audio.addEventListener('ended', function() {
+                if (isLoop) {
+                    audio.currentTime = 0;
+                    audio.play().catch(e => {});
+                    return;
+                }
                 isPlaying = false;
-                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i>';
+                if (visualizerId) cancelAnimationFrame(visualizerId);
                 if (playlist.length > 0 && currentTrackIndex < playlist.length - 1) {
                     loadTrack(currentTrackIndex + 1);
-                    audio.play().catch(() => {});
+                    audio.play().catch(e => {});
                     isPlaying = true;
-                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    document.getElementById('playBtn').innerHTML = '<i class="fas fa-pause"></i>';
+                    initAudioContext();
+                    updateVisualizer();
+                    updateProgress();
                 }
             });
 
@@ -2539,7 +2734,6 @@
                     document.getElementById('rgb-frame').style.opacity = '0';
                 }
 
-                // Custom color
                 const customColor = localStorage.getItem('uchiha_custom_color');
                 if (customColor) {
                     document.querySelector('.color-option.custom-color').style.background = customColor;
@@ -2583,6 +2777,10 @@
                 if (isVip && currentKey) {
                     addTerminalLog(`🔑 Key: ${currentKey} - ${currentKeyInfo ? (currentKeyInfo.isForever ? 'VĨNH VIỄN' : currentKeyInfo.label) : ''}`, 'info');
                     addTerminalLog(`🆔 Device ID: ${getDeviceId()}`, 'info');
+                    if (currentKeyInfo && !currentKeyInfo.isForever) {
+                        const timeLeft = getRemainingTime(currentKeyInfo);
+                        addTerminalLog(`⏱️ Thời gian còn lại: ${timeLeft}`, 'info');
+                    }
                 }
                 addTerminalLog('✅ Hệ thống sẵn sàng', 'success');
             }
@@ -2678,8 +2876,10 @@
 
             console.log('⚡ UCHIHA • V7 PREMIUM DASHBOARD ⚡');
             console.log('🔑 Key: NTH-31 (Vĩnh viễn) | UCHIHAV7 (1h) | UCHIHAV7.1 (1 ngày) | UCHIHAV7.2 (1 tuần) | UCHIHAV7.3 (1 tháng)');
+            console.log('⏱️ Key sẽ tự động đếm ngược thời gian còn lại');
             console.log('🤖 Chat Bot V7 đã được nâng cấp! Gõ /help để xem lệnh.');
             console.log('🎨 Bảng màu đã có sẵn để tùy chỉnh giao diện!');
+            console.log('🎵 Trình phát nhạc đã được sửa lỗi, chạy mượt mà hơn!');
             console.log('👨‍💻 Make by Nguyen Tien Hoc');
         })();
     </script>
