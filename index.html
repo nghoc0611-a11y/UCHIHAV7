@@ -1,522 +1,347 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>UCHIHA V7 · Thông báo chính thức</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-    }
-
-    body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #0b090c;
-      background-image: radial-gradient(circle at 30% 20%, #1f1218 0%, #080508 100%);
-      padding: 16px;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* Lớp nền hiệu ứng Sharingan – Uchiha */
-    .uchiha-bg {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.2;
-      background: 
-        radial-gradient(circle at 25% 35%, #cc2222 0%, transparent 45%),
-        radial-gradient(circle at 75% 60%, #aa1111 0%, transparent 40%),
-        radial-gradient(circle at 50% 85%, #ff3b3b 0%, transparent 35%),
-        radial-gradient(circle at 10% 75%, #990000 0%, transparent 30%);
-      filter: blur(3px) brightness(1.1);
-      animation: pulseGlow 7s ease-in-out infinite alternate;
-    }
-
-    @keyframes pulseGlow {
-      0% { opacity: 0.15; transform: scale(1); }
-      100% { opacity: 0.3; transform: scale(1.04); }
-    }
-
-    /* Vòng tròn Sharingan xoay */
-    .sharingan-ring {
-      position: fixed;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      border: 3px solid rgba(200, 30, 30, 0.15);
-      top: -15%;
-      right: -10%;
-      pointer-events: none;
-      z-index: 0;
-      animation: spinSlow 50s linear infinite;
-      box-shadow: 0 0 90px rgba(200, 0, 0, 0.12);
-    }
-    .sharingan-ring::after {
-      content: '';
-      position: absolute;
-      inset: 25px;
-      border-radius: 50%;
-      border: 2px dashed rgba(200, 50, 50, 0.2);
-      animation: spinSlow 25s linear infinite reverse;
-    }
-    @keyframes spinSlow {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Thẻ thông báo chính – hiệu ứng V7 */
-    .notice-card {
-      position: relative;
-      z-index: 10;
-      max-width: 720px;
-      width: 100%;
-      background: rgba(16, 12, 16, 0.78);
-      backdrop-filter: blur(14px) saturate(190%);
-      -webkit-backdrop-filter: blur(14px) saturate(190%);
-      border: 1px solid rgba(210, 60, 60, 0.35);
-      border-radius: 48px 16px 48px 16px;
-      padding: 40px 34px 44px;
-      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(200, 40, 40, 0.25) inset, 0 0 50px rgba(200, 30, 30, 0.25);
-      transition: transform 0.2s ease;
-      animation: floatCard 5s ease-in-out infinite;
-    }
-
-    @keyframes floatCard {
-      0% { transform: translateY(0px) scale(1); }
-      50% { transform: translateY(-7px) scale(1.006); }
-      100% { transform: translateY(0px) scale(1); }
-    }
-
-    .notice-card::before {
-      content: '';
-      position: absolute;
-      inset: -3px;
-      border-radius: 52px 20px 52px 20px;
-      padding: 2px;
-      background: conic-gradient(from 10deg, #ff4444, #cc1111, #ff8844, #cc1111, #ff4444);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      opacity: 0.5;
-      animation: borderGlow 7s linear infinite;
-    }
-
-    @keyframes borderGlow {
-      0% { opacity: 0.3; filter: hue-rotate(0deg); }
-      50% { opacity: 0.9; filter: hue-rotate(8deg); }
-      100% { opacity: 0.3; filter: hue-rotate(0deg); }
-    }
-
-    /* Header */
-    .uchiha-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-    }
-
-    .uchiha-icon {
-      font-size: 2.8rem;
-      color: #e63939;
-      text-shadow: 0 0 25px #cc2222, 0 0 50px #aa1111;
-      filter: drop-shadow(0 0 10px #ff2a2a);
-      animation: iconPulse 2.4s ease-in-out infinite;
-    }
-
-    @keyframes iconPulse {
-      0% { transform: scale(1); text-shadow: 0 0 10px #cc2222; }
-      50% { transform: scale(1.12); text-shadow: 0 0 35px #ff4444, 0 0 70px #cc2222; }
-      100% { transform: scale(1); text-shadow: 0 0 10px #cc2222; }
-    }
-
-    .uchiha-title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      background: linear-gradient(135deg, #fad0d0, #ff8a8a, #ff3b3b);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 30px rgba(200, 30, 30, 0.4);
-      line-height: 1.1;
-    }
-
-    .version-badge {
-      background: rgba(200, 30, 30, 0.2);
-      backdrop-filter: blur(4px);
-      padding: 6px 18px;
-      border-radius: 100px;
-      border: 1px solid #cc3333;
-      color: #ffbaba;
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-      box-shadow: 0 0 20px rgba(200, 0, 0, 0.15);
-      margin-left: auto;
-    }
-
-    /* Nội dung chính – tiếng Việt */
-    .content {
-      margin: 14px 0 18px;
-    }
-
-    .notice-text {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #f0e6e6;
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
-      background: rgba(0, 0, 0, 0.25);
-      padding: 20px 24px;
-      border-radius: 30px 12px 30px 12px;
-      border-left: 5px solid #cc3333;
-      backdrop-filter: blur(4px);
-      letter-spacing: 0.3px;
-    }
-
-    .highlight-red {
-      color: #ff7b7b;
-      font-weight: 700;
-      text-shadow: 0 0 14px #cc2222;
-    }
-
-    .aimlock-highlight {
-      display: inline-block;
-      font-weight: 800;
-      font-size: 1.4rem;
-      background: linear-gradient(145deg, #ff4d4d, #cc1111);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 40px #ff2222;
-      letter-spacing: 1px;
-      padding: 0 4px;
-      animation: flicker 3.2s infinite;
-    }
-
-    @keyframes flicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.75; text-shadow: 0 0 60px #ff3a3a; }
-    }
-
-    .demo-date {
-      display: inline-block;
-      background: #1a0f0f;
-      border: 1px solid #aa2222;
-      border-radius: 60px;
-      padding: 5px 22px;
-      font-weight: 700;
-      color: #ffb0b0;
-      box-shadow: 0 0 25px rgba(200, 0, 0, 0.2);
-      margin: 10px 0 4px;
-      font-size: 1.2rem;
-      letter-spacing: 1px;
-    }
-
-    .demo-date i {
-      color: #ff5e5e;
-      margin-right: 10px;
-    }
-
-    /* Dòng cảm ơn riêng biệt, nổi bật */
-    .thank-you-line {
-      margin-top: 22px;
-      padding: 16px 18px;
-      background: rgba(180, 30, 30, 0.10);
-      border-radius: 60px 12px 60px 12px;
-      border: 1px solid rgba(200, 60, 60, 0.25);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 0 30px rgba(200, 0, 0, 0.08);
-    }
-
-    .thank-you-line i {
-      font-size: 1.7rem;
-      color: #ff6a6a;
-      filter: drop-shadow(0 0 10px #aa2222);
-      animation: heartBeat 2s infinite;
-    }
-
-    @keyframes heartBeat {
-      0% { transform: scale(1); }
-      30% { transform: scale(1.2); }
-      60% { transform: scale(1); }
-      80% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-
-    .thank-you-text {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: #ffd8d8;
-      text-shadow: 0 0 15px #661111;
-      letter-spacing: 0.5px;
-      flex: 1;
-    }
-
-    .thank-you-text span {
-      color: #ffabab;
-      font-weight: 300;
-    }
-
-    /* Footer */
-    .footer-note {
-      margin-top: 28px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      border-top: 1px solid rgba(200, 50, 50, 0.2);
-      padding-top: 22px;
-    }
-
-    .share-uchiha {
-      display: flex;
-      gap: 16px;
-      color: #be8c8c;
-      font-size: 1.2rem;
-    }
-
-    .share-uchiha i {
-      transition: 0.25s ease;
-      cursor: default;
-      filter: drop-shadow(0 0 6px #661111);
-    }
-
-    .share-uchiha i:hover {
-      color: #ff6a6a;
-      transform: scale(1.2) rotate(8deg);
-      filter: drop-shadow(0 0 25px #cc2222);
-    }
-
-    .btn-shinobi {
-      background: transparent;
-      border: 1.5px solid #cc3333;
-      color: #ffd0d0;
-      padding: 12px 32px;
-      border-radius: 60px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: 1px;
-      backdrop-filter: blur(8px);
-      background: rgba(30, 10, 10, 0.3);
-      transition: 0.25s ease;
-      box-shadow: 0 0 18px rgba(200, 0, 0, 0.15);
-      cursor: default;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn-shinobi i {
-      color: #ff6666;
-    }
-
-    .btn-shinobi:hover {
-      background: rgba(200, 30, 30, 0.25);
-      border-color: #ff5555;
-      box-shadow: 0 0 50px #cc2222;
-      transform: scale(1.02);
-    }
-
-    /* dòng chữ Uchiha đặc trưng */
-    .sharingan-text {
-      margin-top: 14px;
-      font-size: 0.75rem;
-      color: #a57272;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      opacity: 0.5;
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .sharingan-text span {
-      animation: flickerText 2.8s infinite alternate;
-    }
-
-    @keyframes flickerText {
-      0% { opacity: 0.2; }
-      100% { opacity: 1; }
-    }
-
-    /* giọt máu trang trí */
-    .blood-drop {
-      position: absolute;
-      width: 10px;
-      height: 20px;
-      background: radial-gradient(ellipse at 50% 0%, #cc2222, #550000);
-      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-      opacity: 0.15;
-      filter: blur(1px);
-      pointer-events: none;
-      z-index: 0;
-      animation: drip 9s infinite;
-    }
-
-    @keyframes drip {
-      0% { transform: translateY(-40px) scale(0.5); opacity: 0; }
-      20% { opacity: 0.3; }
-      80% { opacity: 0.3; }
-      100% { transform: translateY(140px) scale(1); opacity: 0; }
-    }
-
-    .blood-drop:nth-child(1) { left: 8%; animation-delay: 0s; }
-    .blood-drop:nth-child(2) { left: 25%; animation-delay: 2.8s; width: 7px; height: 15px; }
-    .blood-drop:nth-child(3) { right: 18%; animation-delay: 4.6s; width: 9px; height: 19px; }
-    .blood-drop:nth-child(4) { right: 6%; animation-delay: 6.5s; width: 12px; height: 24px; }
-
-    /* Responsive */
-    @media (max-width: 580px) {
-      .notice-card {
-        padding: 26px 18px 32px;
-        border-radius: 32px 12px 32px 12px;
-      }
-      .uchiha-title {
-        font-size: 1.7rem;
-      }
-      .uchiha-icon {
-        font-size: 2.2rem;
-      }
-      .notice-text {
-        font-size: 1rem;
-        padding: 16px 18px;
-      }
-      .version-badge {
-        font-size: 0.7rem;
-        padding: 4px 12px;
-        margin-left: 0;
-        width: 100%;
-        text-align: center;
-      }
-      .btn-shinobi {
-        padding: 10px 18px;
-        font-size: 0.8rem;
-        width: 100%;
-        justify-content: center;
-      }
-      .footer-note {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .thank-you-line {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-      .thank-you-text {
-        font-size: 1rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>AIMLOCK MODE 9.0 ⚡ CẬP NHẬT UCHIHA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* RESET & BASE */
+        * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; }
+        ::-webkit-scrollbar { width:0; }
+        html,body { background:#030303; color:#eee; min-height:100vh; display:flex; justify-content:center; align-items:center; padding:20px; font-size:14px; line-height:1.5; overflow:hidden; margin:0; height:100dvh; -webkit-text-size-adjust:100%; }
+        
+        /* BACKGROUND EFFECTS */
+        #bg-canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+        .bg-glow { position:fixed; border-radius:50%; filter:blur(120px); pointer-events:none; z-index:0; }
+        .bg-glow.g1 { width:400px; height:400px; top:-100px; right:-100px; background:radial-gradient(circle,rgba(106,13,173,0.15),transparent 70%); animation:floatGlow 8s ease-in-out infinite; }
+        .bg-glow.g2 { width:350px; height:350px; bottom:-80px; left:-80px; background:radial-gradient(circle,rgba(255,0,0,0.12),transparent 70%); animation:floatGlow 10s ease-in-out infinite reverse; }
+        @keyframes floatGlow { 0%,100%{ transform:translate(0,0) scale(1); } 33%{ transform:translate(20px,-20px) scale(1.1); } 66%{ transform:translate(-15px,15px) scale(0.9); } }
+        .scanline { position:fixed; inset:0; pointer-events:none; z-index:1; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px); }
+        .sharingan-bg { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-size:400px; opacity:0.025; color:#A00000; pointer-events:none; z-index:0; animation:sharinganSpin 30s linear infinite; }
+        @keyframes sharinganSpin { 0%{ transform:translate(-50%,-50%) rotate(0deg) scale(1.2); } 100%{ transform:translate(-50%,-50%) rotate(360deg) scale(1.2); } }
+        
+        /* CARD */
+        .card { position:relative; z-index:2; width:100%; max-width:420px; background:rgba(10,7,8,0.85); backdrop-filter:blur(20px); border-radius:28px; padding:28px 22px; border:1px solid rgba(160,0,0,0.2); box-shadow:0 0 60px rgba(160,0,0,0.08), inset 0 0 60px rgba(160,0,0,0.02); animation:cardFade 0.8s cubic-bezier(0.4,0,0.2,1); }
+        @keyframes cardFade { 0%{ opacity:0; transform:translateY(30px) scale(0.95); } 100%{ opacity:1; transform:translateY(0) scale(1); } }
+        
+        /* LOGO */
+        .logo { text-align:center; margin-bottom:12px; animation:logoFade 0.6s ease forwards; opacity:0; }
+        @keyframes logoFade { 0%{ opacity:0; transform:scale(0.8); } 100%{ opacity:1; transform:scale(1); } }
+        .logo .main { font-size:28px; font-weight:900; background:linear-gradient(135deg,#A00000,#FF0000,#6A0DAD); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:2px; }
+        .logo .sub { font-size:10px; color:#666; letter-spacing:4px; margin-top:2px; }
+        .logo .nth { font-size:12px; color:#888; letter-spacing:6px; margin-top:4px; font-weight:600; }
+        
+        /* TITLE */
+        .title { text-align:center; margin:6px 0 4px; animation:slideUp 0.7s ease 0.2s both; }
+        @keyframes slideUp { 0%{ opacity:0; transform:translateY(20px); } 100%{ opacity:1; transform:translateY(0); } }
+        .title .icon { font-size:36px; display:block; margin-bottom:4px; animation:pulseIcon 2s ease-in-out infinite; }
+        @keyframes pulseIcon { 0%,100%{ transform:scale(1); opacity:0.8; } 50%{ transform:scale(1.1); opacity:1; } }
+        .title .main-text { font-size:20px; font-weight:800; color:#FF0000; letter-spacing:1px; }
+        .title .sub-text { font-size:13px; color:#aaa; margin-top:4px; letter-spacing:2px; }
+        
+        /* DEV INFO */
+        .dev-info { text-align:center; margin:6px 0 12px; animation:slideUp 0.7s ease 0.4s both; }
+        .dev-info .name { font-size:16px; font-weight:700; color:#fff; letter-spacing:2px; }
+        .dev-info .name span { color:#A00000; }
+        .dev-info .divider { width:40px; height:2px; margin:6px auto; background:linear-gradient(90deg,transparent,#A00000,transparent); }
+        .dev-info .sub-name { font-size:11px; color:#666; letter-spacing:3px; }
+        
+        /* BUTTON */
+        .btn-container { animation:slideUp 0.7s ease 0.6s both; margin:10px 0; }
+        .btn-download {
+            width:100%; padding:16px 20px; border:none; border-radius:60px;
+            background:linear-gradient(135deg,#A00000,#FF0000,#6A0DAD);
+            background-size:200% 200%; color:#fff; font-size:16px; font-weight:700;
+            cursor:pointer; position:relative; overflow:hidden; transition:0.3s;
+            letter-spacing:1px; display:flex; align-items:center; justify-content:center; gap:12px;
+            box-shadow:0 0 40px rgba(160,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.05);
+            animation:pulseBtn 2s ease-in-out infinite;
+        }
+        @keyframes pulseBtn { 0%,100%{ box-shadow:0 0 40px rgba(160,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.05); } 50%{ box-shadow:0 0 60px rgba(255,0,0,0.4), 0 0 80px rgba(106,13,173,0.2), inset 0 0 30px rgba(255,255,255,0.08); } }
+        .btn-download:hover { transform:scale(1.02); }
+        .btn-download:active { transform:scale(0.95); }
+        .btn-download .ripple {
+            position:absolute; border-radius:50%; background:rgba(255,255,255,0.3);
+            transform:scale(0); animation:rippleAnim 0.6s ease-out;
+            pointer-events:none;
+        }
+        @keyframes rippleAnim { to{ transform:scale(4); opacity:0; } }
+        .btn-download i { font-size:20px; }
+        .btn-download .btn-text { position:relative; z-index:1; }
+        .btn-download.loading { animation:none; opacity:0.7; }
+        
+        /* WARNING CARD */
+        .warning-card {
+            background:#0a0505; border-radius:16px; padding:14px 16px;
+            border:1.5px solid #FF0000; box-shadow:0 0 30px rgba(255,0,0,0.08), inset 0 0 30px rgba(255,0,0,0.03);
+            margin:10px 0 8px; animation:slideUp 0.7s ease 0.8s both;
+            position:relative; overflow:hidden;
+        }
+        .warning-card::before {
+            content:''; position:absolute; inset:0;
+            background:linear-gradient(135deg,rgba(255,0,0,0.03),transparent 50%);
+            pointer-events:none;
+        }
+        .warning-card .warn-icon { font-size:28px; display:block; text-align:center; margin-bottom:4px; animation:pulseIcon 1.5s ease-in-out infinite; }
+        .warning-card .warn-title { font-size:14px; font-weight:800; color:#FF0000; text-align:center; letter-spacing:1px; }
+        .warning-card .warn-body { font-size:12px; color:#ddd; text-align:center; margin-top:4px; line-height:1.6; }
+        .warning-card .warn-body .highlight-red { color:#FF6666; font-weight:700; }
+        .warning-card .warn-body .highlight-bold { font-weight:700; color:#fff; }
+        .warning-card .warn-note { font-size:10px; color:#666; text-align:center; margin-top:6px; padding-top:6px; border-top:1px solid #1a0a0a; }
+        
+        /* CONTACT */
+        .contact { text-align:center; margin:8px 0 4px; animation:slideUp 0.7s ease 1s both; }
+        .contact .label { font-size:11px; color:#888; }
+        .contact .admin { font-size:13px; font-weight:700; color:#A00000; letter-spacing:1px; }
+        .contact .admin i { margin-right:4px; }
+        
+        /* FOOTER */
+        .footer { text-align:center; margin-top:14px; padding-top:12px; border-top:1px solid rgba(160,0,0,0.1); animation:slideUp 0.7s ease 1.2s both; }
+        .footer .line1 { font-size:10px; color:#444; letter-spacing:2px; }
+        .footer .line2 { font-size:9px; color:#333; letter-spacing:1px; margin-top:2px; }
+        
+        /* TOAST */
+        .toast-container { position:fixed; top:60px; left:50%; transform:translateX(-50%); z-index:99999; width:90%; max-width:380px; }
+        .toast { background:rgba(10,7,8,0.95); border:1px solid #A0000066; border-radius:60px; padding:12px 18px; margin-bottom:6px; display:flex; align-items:center; gap:10px; box-shadow:0 0 40px rgba(160,0,0,0.2); backdrop-filter:blur(10px); animation:slideDown 0.3s ease; transition:opacity 0.3s; font-size:13px; }
+        .toast .progress { height:3px; background:#A00000; border-radius:10px; flex:1; animation:toastProgress 2.5s linear forwards; }
+        @keyframes toastProgress { from{ width:100%; } to{ width:0%; } }
+        @keyframes slideDown { from{ opacity:0; transform:translateY(-20px); } to{ opacity:1; transform:translateY(0); } }
+        
+        /* RESPONSIVE */
+        @media (max-width:400px) {
+            .card { padding:20px 16px; }
+            .logo .main { font-size:22px; }
+            .title .main-text { font-size:17px; }
+            .btn-download { font-size:14px; padding:14px 16px; }
+            .warning-card .warn-title { font-size:12px; }
+            .warning-card .warn-body { font-size:11px; }
+        }
+        @media (max-width:350px) {
+            .card { padding:16px 12px; }
+            .logo .main { font-size:19px; }
+            .btn-download { font-size:12px; padding:12px 14px; gap:8px; }
+            .btn-download i { font-size:16px; }
+        }
+        @supports (padding: max(0px)) {
+            .card { padding-left:max(22px, env(safe-area-inset-left)); padding-right:max(22px, env(safe-area-inset-right)); }
+        }
+    </style>
 </head>
 <body>
-  <!-- Lớp hiệu ứng nền Uchiha -->
-  <div class="uchiha-bg"></div>
-  <div class="sharingan-ring"></div>
+    <!-- BACKGROUND EFFECTS -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="bg-glow g1"></div>
+    <div class="bg-glow g2"></div>
+    <div class="scanline"></div>
+    <div class="sharingan-bg">🔴</div>
 
-  <!-- giọt máu trang trí -->
-  <div class="blood-drop"></div>
-  <div class="blood-drop"></div>
-  <div class="blood-drop"></div>
-  <div class="blood-drop"></div>
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
 
-  <!-- THẺ THÔNG BÁO CHÍNH -->
-  <div class="notice-card">
-
-    <!-- Header UCHIHA V7 -->
-    <div class="uchiha-header">
-      <div class="uchiha-icon">
-        <i class="fas fa-eye"></i>
-      </div>
-      <div class="uchiha-title">UCHIHA</div>
-      <span class="version-badge"><i class="fas fa-bolt" style="margin-right: 6px;"></i>V7 · Sharingan</span>
-    </div>
-
-    <!-- Nội dung thông báo – tiếng Việt rõ ràng -->
-    <div class="content">
-      <div class="notice-text">
-        <i class="fas fa-scroll" style="color: #cc4444; margin-right: 14px;"></i>
-        <strong style="color: #ff9e9e;">Thông báo từ Tiến Học</strong><br><br>
-        Sau quá trình hoạt động, chúng tôi thông báo đến người dùng rằng sẽ 
-        <span class="highlight-red">DỪNG HOẠT ĐỘNG UCHIHA MỌI VERSION</span> 
-        và chính thức chuyển hướng phát triển ứng dụng mới với tên gọi 
-        <span class="aimlock-highlight">AIMLOCK NTH</span>.
-        <br><br>
-        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px; margin-top: 8px;">
-          <i class="fas fa-calendar-alt" style="color: #cc4444;"></i>
-          <span class="demo-date">
-            <i class="fas fa-clock"></i> Demo · 11/8/2026
-          </span>
-          <span style="color: #c9a0a0; font-size: 0.9rem; background: rgba(0,0,0,0.2); padding: 4px 16px; border-radius: 40px;">
-            <i class="fas fa-fire"></i> đón nhận
-          </span>
+    <!-- MAIN CARD -->
+    <div class="card">
+        <!-- LOGO -->
+        <div class="logo">
+            <div class="main">⚡ AIMLOCK MODE</div>
+            <div class="sub">UCHIHA EDITION</div>
+            <div class="nth">NTH</div>
         </div>
 
-        <!-- Dòng cảm ơn nổi bật – trình bày riêng -->
-        <div class="thank-you-line">
-          <i class="fas fa-heart"></i>
-          <div class="thank-you-text">
-            <span>🙏</span> Cảm ơn mọi người đã đồng hành và sử dụng UCHIHA trong thời gian qua. 
-            <span style="display: inline-block; margin-top: 4px; font-weight: 300; color: #e6b0b0;">
-              Hẹn gặp lại ở AIMLOCK NTH!
-            </span>
-          </div>
+        <!-- TITLE -->
+        <div class="title">
+            <span class="icon">🔴</span>
+            <div class="main-text">HỆ THỐNG ĐÃ CẬP NHẬT</div>
+            <div class="sub-text">VUI LÒNG CÀI ĐẶT PHIÊN BẢN MỚI</div>
         </div>
 
-        <div style="margin-top: 16px; font-style: italic; color: #bf8f8f; border-top: 1px dashed #552222; padding-top: 14px; display: flex; gap: 8px; align-items: center;">
-          <i class="fas fa-shield-alt" style="color: #aa4444;"></i> 
-          <span style="font-weight: 300;">「 Huyền thoại mới sắp bắt đầu 」</span>
+        <!-- DEV INFO -->
+        <div class="dev-info">
+            <div class="name">⚡ <span>AIMLOCK MODE</span></div>
+            <div class="divider"></div>
+            <div class="sub-name">DEV NGUYEN TIEN HOC</div>
         </div>
-      </div>
+
+        <!-- DOWNLOAD BUTTON -->
+        <div class="btn-container">
+            <button class="btn-download" id="downloadBtn">
+                <i class="fas fa-download"></i>
+                <span class="btn-text">⬇️ TẢI XUỐNG PHIÊN BẢN MỚI</span>
+            </button>
+        </div>
+
+        <!-- WARNING CARD -->
+        <div class="warning-card">
+            <div class="warn-icon">⚠️</div>
+            <div class="warn-title">LƯU Ý QUAN TRỌNG</div>
+            <div class="warn-body">
+                VUI LÒNG <span class="highlight-red">XOÁ CẤU HÌNH</span><br>
+                <span class="highlight-bold">“UCHIHA V7”</span><br>
+                TRƯỚC KHI CÀI ĐẶT PHIÊN BẢN MỚI!
+            </div>
+            <div class="warn-note">
+                ❗ Hãy đảm bảo cấu hình UCHIHA V7 đã được xoá hoàn toàn trước khi tiến hành cài đặt phiên bản mới.
+            </div>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="contact">
+            <div class="label">📩 LIÊN HỆ</div>
+            <div class="admin"><i class="fas fa-user-cog"></i> ADMIN TIẾN HỌC ĐZ</div>
+            <div style="font-size:10px;color:#666;margin-top:2px;">ĐỂ MUA KEY / CẤP KEY</div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <div class="line1">⚡ AIMLOCK MODE • UCHIHA EDITION</div>
+            <div class="line2">DEV NGUYEN TIEN HOC © 2026</div>
+        </div>
     </div>
 
-    <!-- Footer + CTA -->
-    <div class="footer-note">
-      <div class="share-uchiha">
-        <i class="fab fa-firefox-browser"></i>
-        <i class="fas fa-share-alt"></i>
-        <i class="fas fa-sync-alt fa-spin" style="color: #cc4444;"></i>
-        <i class="fas fa-code-branch"></i>
-      </div>
-      <div class="btn-shinobi">
-        <i class="fas fa-robot"></i> 
-        <span>#AIMLOCK_NTH</span>
-        <i class="fas fa-chevron-circle-right"></i>
-      </div>
-    </div>
+    <script>
+        (function() {
+            // PARTICLES BACKGROUND
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+            let w, h, particles = [];
 
-    <!-- dòng chữ hiệu ứng đặc biệt Uchiha -->
-    <div class="sharingan-text">
-      <span>◆</span>
-      <span>U C H I H A</span>
-      <span>◆</span>
-      <span>V 7</span>
-      <span>◆</span>
-      <span>S H A R I N G A N</span>
-      <span>◆</span>
-    </div>
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
 
-  </div>
+            class Particle {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.4;
+                    this.speedY = (Math.random() - 0.5) * 0.4;
+                    this.opacity = Math.random() * 0.3 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > w) this.speedX *= -1;
+                    if (this.y < 0 || this.y > h) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 4);
+                    gradient.addColorStop(0, `rgba(160,0,0,${this.opacity * 0.8})`);
+                    gradient.addColorStop(1, `rgba(106,13,173,0)`);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                }
+            }
 
-  <!-- icon nhỏ góc -->
-  <div style="position: fixed; bottom: 18px; right: 18px; z-index: 99; color: #3a1a1a; opacity: 0.25; font-size: 0.7rem; pointer-events: none; letter-spacing: 2px;">
-    <i class="fas fa-infinity"></i> UCHIHA V7
-  </div>
+            for (let i = 0; i < 80; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, w, h);
+                particles.forEach(p => { p.update(); p.draw(); });
+                // Draw connections
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(160,0,0,${0.04 * (1 - dist / 150)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            // TOAST
+            function showToast(msg, icon, color) {
+                icon = icon || '✓';
+                color = color || '#A00000';
+                var container = document.getElementById('toastContainer');
+                var div = document.createElement('div');
+                div.className = 'toast';
+                div.innerHTML = '<span style="color:' + color + ';font-size:16px;">' + icon + '</span><span style="flex:1;font-size:12px;">' + msg + '</span><span class="progress"></span>';
+                container.appendChild(div);
+                setTimeout(function() {
+                    div.style.opacity = '0';
+                    setTimeout(function() { div.remove(); }, 300);
+                }, 2600);
+            }
+
+            // RIPPLE EFFECT
+            function createRipple(e, btn) {
+                const rect = btn.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                btn.appendChild(ripple);
+                setTimeout(() => { ripple.remove(); }, 600);
+            }
+
+            // DOWNLOAD BUTTON
+            const downloadBtn = document.getElementById('downloadBtn');
+            const downloadUrl = 'https://www.mediafire.com/file/avjetnh2iosp9qy/%F0%9D%94%B8%F0%9D%95%80%F0%9D%95%84%F0%9D%95%83%F0%9D%95%83%F0%9D%95%86%F0%9D%84%2A%F0%9D%95%84%F0%9D%95%8B%F0%9D%95%83_da_ky.mobileconfig/file';
+
+            downloadBtn.addEventListener('click', function(e) {
+                createRipple(e, this);
+                
+                // Show loading state
+                const originalText = this.querySelector('.btn-text').textContent;
+                const originalIcon = this.querySelector('i').className;
+                this.querySelector('.btn-text').textContent = '⏳ ĐANG MỞ TRANG TẢI...';
+                this.querySelector('i').className = 'fas fa-spinner fa-spin';
+                this.classList.add('loading');
+                this.disabled = true;
+
+                // Open URL in new tab
+                try {
+                    const newWindow = window.open(downloadUrl, '_blank');
+                    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                        // Fallback: redirect
+                        window.location.href = downloadUrl;
+                    }
+                } catch (e) {
+                    window.location.href = downloadUrl;
+                }
+
+                showToast('📥 ĐANG MỞ TRANG TẢI XUỐNG...', '📥', '#FF0000');
+
+                // Reset button after delay
+                setTimeout(() => {
+                    this.querySelector('.btn-text').textContent = originalText;
+                    this.querySelector('i').className = originalIcon;
+                    this.classList.remove('loading');
+                    this.disabled = false;
+                }, 3000);
+            });
+
+            // KEYBOARD SUPPORT
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    downloadBtn.click();
+                }
+            });
+
+            console.log('⚡ AIMLOCK MODE 9.0 • UCHIHA EDITION ⚡');
+            console.log('🔴 SHARINGAN POWER ACTIVATED');
+            console.log('👤 DEV: NGUYEN TIEN HOC');
+        })();
+    </script>
 </body>
 </html>
